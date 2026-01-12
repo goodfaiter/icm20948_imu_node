@@ -11,16 +11,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-colcon-common-extensions \
     python3-pip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 ## Install python dependencies
-RUN pip3 install sparkfun-qwiic-i2c RPi.GPIO
+RUN pip3 install RPi.GPIO
+
+# Install qwiic package
+RUN git clone https://github.com/sparkfun/qwiic_9dof_imu_icm20948_py.git
+WORKDIR /qwiic_9dof_imu_icm20948_py
+RUN pip3 install sparkfun-qwiic-icm20948
+WORKDIR /
+RUN rm -rf /qwiic_9dof_imu_icm20948_py
 
 COPY ros_entrypoint.sh /ros_entrypoint.sh
 
 WORKDIR /colcon_ws
 
-COPY ./hx711_node src/hx711_node 
+COPY ./icm20948_imu_node src/icm20948_imu_node 
 
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && colcon build --symlink-install --event-handlers console_direct+ --cmake-args ' -DCMAKE_BUILD_TYPE=Release'
 

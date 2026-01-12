@@ -9,8 +9,7 @@ services:
     ipc: host
     pid: host
     devices:
-      - /dev/gpiomem
-    privileged: true
+      - /dev/i2c-1:/dev/i2c-1
     environment:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
