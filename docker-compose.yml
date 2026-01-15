@@ -13,4 +13,5 @@ services:
     environment:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
+      - I2C_GROUP_ID=988
     command: su - ros --whitelist-environment=ROS_DOMAIN_ID /run.sh

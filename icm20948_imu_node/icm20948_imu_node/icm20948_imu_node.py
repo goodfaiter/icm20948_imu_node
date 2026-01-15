@@ -14,7 +14,7 @@ class ICM20948Node(Node):
         # Hard-coded parameters
         self.i2c_address = 0x69  # Default I2C address
         
-        self.poll_rate = 100.0  # Hz
+        self.poll_rate = 80.0  # Hz
 
         # Initialize the IMU
         self.imu = qwiic_icm20948.QwiicIcm20948(address=self.i2c_address)
